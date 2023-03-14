@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Models\listing;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('listings',[
-        'heading' => 'robin'
+        'heading' => 'robin',
+        'listings'=> Listing::all()
+           
+        
     ]);
 });
+
