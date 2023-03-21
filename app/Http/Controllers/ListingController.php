@@ -50,10 +50,15 @@ public function store(Request $request){
    Listing::create($formFields);
    
    return redirect('/')->with('message','Listing Created Successfully!');
-    
 
 
+}
 
+
+//show Edit Form
+public function edit(Listing $listing){
+  
+    return view('listings.edit',['listing'=>$listing]);
 }
 
 
