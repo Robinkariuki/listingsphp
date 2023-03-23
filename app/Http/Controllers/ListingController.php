@@ -69,6 +69,12 @@ public function edit(Listing $listing){
 
 //update Listing Data
 public function update(Request $request,Listing $listing){
+   // Make sure logged in user is owner
+
+   if($listing->user_id != auth()->id()){
+      abort(403,'unauthorized Action');
+   }
+
     $formFields = $request->validate([
        'title'=>'required',
        'company'=> ['required'],
@@ -94,6 +100,11 @@ public function update(Request $request,Listing $listing){
 
    //Delete Listing
    public function destroy(Listing $listing){
+    
+    if($listing->user_id != auth()->id()){
+        abort(403,'unauthorized Action');
+     }
+  
     $listing->delete();
     return redirect('/')->with('message','Listing Deleted Successfully');
    }
