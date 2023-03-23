@@ -47,9 +47,14 @@ public function store(Request $request){
     $formFields['logo'] = $request->file('logo')->store('logos','public');
    }
 
+   $formFields['user_id'] = auth()->id();
+
    Listing::create($formFields);
    
    return redirect('/')->with('message','Listing Created Successfully!');
+
+
+
 
 
 }
@@ -91,5 +96,12 @@ public function update(Request $request,Listing $listing){
    public function destroy(Listing $listing){
     $listing->delete();
     return redirect('/')->with('message','Listing Deleted Successfully');
+   }
+
+
+
+   //Manage Listings
+   public function manage(){
+    return view('listings.manage',['listings'=> auth()->user()->listings()->get()]);
    }
 }
